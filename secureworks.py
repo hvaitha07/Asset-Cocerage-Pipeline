@@ -1,6 +1,10 @@
 import requests
-import csv
 import time
+import json
+import pandas as pd
+from pandas import json_normalize
+from pyspark.sql import SparkSession
+
 
 # ==== Auth ====
 AUTH_URL = "https://api.delta.taegis.secureworks.com/auth/token"
@@ -54,9 +58,8 @@ if __name__ == "__main__":
     assets = fetch_all_assets(token)
     keys = ["hostnames", "ipAddresses", "users", "operatingSystem", "createdAt", "updatedAt"]
     with open("secureworks_assets.csv", "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=keys)
-        writer.writeheader()
-        for asset in assets:
-            row = {k: asset.get(k) for k in keys}
-            writer.writerow(row)
-    print(f"✅ Exported {len(assets)} SecureWorks assets to secureworks_assets.csv")
+        # After building final pandas df = ...
+spark_df = spark.createDataFrame(df)
+spark_df.write.mode("overwrite").saveAsTable("security_nprod.db.raw.secureworks_assets")
+print("✅ Data saved to: security_nprod.db.raw.secureworks_assets")
+
