@@ -1,29 +1,21 @@
 Asset Coverage Gap Analytics (Databricks + Power BI)
+> **Why this matters:** Security inventory lives in multiple tools with different schemas. This repo unifies them so you can answer, at a glance, “Which assets are fully covered? Which are at risk?” across ADUC, Cortex, Lansweeper, Secureworks, and Tenable.
+
 
 Unifies asset inventories from ADUC, Cortex XDR, Lansweeper, Secureworks Taegis, and Tenable into Delta tables on Databricks, computes a coverage gap dataset, and visualizes it in Power BI.
 
 Outcome: a single table that tells you whether each endpoint is seen by each tool (Yes/No), how many tools cover it (0–5), and a Coverage Category (Fully / Partially / Not Covered).
 
-🗂️ Repository layout
-asset-coverage-gap-analytics/
-├─ collectors/
-│  ├─ aduc/fetch_assets.py
-│  ├─ cortex/cortex_endpoints_to_delta.py
-│  ├─ lansweeper/lsdatapuller.py
-│  ├─ secureworks/secureworks_assets_to_delta.py
-│  └─ tenable/tenable_hosts_to_delta.py
-├─ notebooks/
-│  └─ gap_analysis_databricks.py
-├─ powerbi/
-│  └─ GapCoverageDashboard.pbix
-├─ docs/
-│  ├─ architecture.md
-│  ├─ data_dictionary.md
-│  └─ security.md
-├─ infra/
-│  ├─ requirements.txt
-│  └─ .env.example
-└─ README.md
+**Table of Contents**
+- [Architecture (ELT)](#architecture-elt)
+- [Delta tables](#delta-tables-targets-written-by-collectors)
+- [Quick start (Databricks)](#quick-start-databricks)
+- [Gap logic](#gap-logic-high-level)
+- [Power BI](#power-bi)
+- [Security & compliance](#security--compliance)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+
 
 🔍 Architecture (ELT)
 Collectors call vendor APIs (or LDAP for ADUC).
