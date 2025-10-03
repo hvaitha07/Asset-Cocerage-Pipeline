@@ -1,5 +1,4 @@
-# Asset-Cocerage-Pipeline
-Unified Data Pipeline for Asset Coverage across ADUC, Lansweeper, SecureWorks, Cortex, and Tenable with Delta Lake + Power BI.
+Unified Data Pipeline for Asset Coverage across ADUC, Lansweeper, SecureWorks, Cortex, and Tenable with Databricks Delta Lake Architecture + Power BI.
 
 # Asset Coverage Pipeline
 
