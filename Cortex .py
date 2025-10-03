@@ -4,6 +4,12 @@
 import requests
 import pandas as pd
 import time
+import requests
+import json
+import pandas as pd
+import time
+from pandas import json_normalize
+from pyspark.sql import SparkSession
 
 # ==== Auth ====
 API_KEY_ID = "Your_API_Key_ID"
@@ -75,7 +81,7 @@ pd.set_option('display.max_colwidth', 100)
 print("👀 PREVIEW: First 10 Endpoint Records (Clean View)")
 print(df.head(10))
 
-# ==== Save to CSV ====
-output_path = r"C:\Users\229242\Desktop\cortex_endpoints.csv"
-df.to_csv(output_path, index=False)
-print(f"💾 Saved to {output_path}")
+spark_df = spark.createDataFrame(df)
+spark_df.write.mode("overwrite").saveAsTable("security_nprod.db.raw.cortex_assets")
+print("✅ Data saved to: security_nprod.db.raw.cortex_assets")
+
